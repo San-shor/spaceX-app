@@ -1,7 +1,15 @@
 <script>
-  import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
-  export let data = [];
+  import {
+    Table,
+    TableBody,
+    TableBodyCell,
+    TableBodyRow,
+    TableHead,
+    TableHeadCell,
+  } from 'flowbite-svelte';
 
+  let { data } = $props();
+  console.log(data);
 </script>
 
 <Table>
@@ -15,15 +23,14 @@
     <TableHeadCell>STATUS</TableHeadCell>
   </TableHead>
   <TableBody tableBodyClass="divide-y">
-    <TableBodyRow>
-      {#each data as landingPads }
-      <TableBodyCell>{landingPads.full_name}</TableBodyCell>
-      <TableBodyCell>{landingPads.location}</TableBodyCell>
-      
-      {/each}
-      
-    </TableBodyRow>
-   
- 
+    {#each data as landingPad}
+      <TableBodyRow>
+        <TableBodyCell>{landingPad.full_name}</TableBodyCell>
+        <TableBodyCell>{landingPad.location.name}</TableBodyCell>
+        <TableBodyCell>{landingPad.location.region}</TableBodyCell>
+        <TableBodyCell>{landingPad.details}</TableBodyCell>
+        <TableBodyCell>{landingPad.status}</TableBodyCell>
+      </TableBodyRow>
+    {/each}
   </TableBody>
 </Table>
