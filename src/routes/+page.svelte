@@ -4,5 +4,9 @@
   let { data } = $props();
 </script>
 
-<h1>{data.landsPadData[0].full_name}</h1>
-<Table data={data.landsPadData} />
+<div class="grid grid-cols-12 gap-10">
+  <div class="grid col-span-9">
+    <Table data={data.landsPadData} />
+  </div>
+  <div class="grid col-span-3">MapView</div>
+</div>
