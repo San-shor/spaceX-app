@@ -4,7 +4,7 @@
   let { data } = $props();
 </script>
 
-<div class="grid grid-cols-12 gap-10">
+<div class="px-24 grid grid-cols-12 gap-10">
   <div class="grid col-span-9">
     <Table data={data.landsPadData} />
   </div>
