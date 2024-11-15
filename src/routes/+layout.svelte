@@ -1,27 +1,16 @@
 <script>
-import "../app.css"
-import Header from '$lib/components/Header.svelte';
-import Table from '$lib/components/Table.svelte';
-import { getLandingPadData } from './api/+server';
-import { onMount } from 'svelte';
+  import '../app.css';
+  import Logo from '$lib/assets/logo.png';
+  import Table from '$lib/components/Table.svelte';
 
-let landingPads = [];
-let error = null;
-
-  onMount(async () => {
-    try {
-      landingPads = await getLandingPadData();
-    } catch (err) {
-      error = err.message;
-      console.error('Error fetching landing pads:', error);
-    }
-  });
+  let { children } = $props();
 </script>
-<Header/>
-<main class="p-4">
- 
- 
-    <Table data={landingPads} />
 
+<header class="bg-white shadow-md">
+  <div class="flex items-center justify-center p-4">
+    <img src={Logo} alt="Logo" class="h-8 mr-2" />
+  </div>
+</header>
+<main class="p-4">
+  {@render children()}
 </main>
-<slot></slot>
