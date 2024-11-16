@@ -6,12 +6,13 @@
   import VectorLayer from 'ol/layer/Vector';
   import OSM from 'ol/source/OSM.js';
   import { fromLonLat } from 'ol/proj';
-
+  import XYZ from 'ol/source/XYZ';
   import { onMount } from 'svelte';
   import { createLandingPadFeatures } from '../../utils/mapUtils';
+  import ActiveIcon from '$lib/assets/active.svg';
 
   let { data } = $props();
-  console.log(data);
+
   let map;
 
   onMount(() => {
@@ -29,12 +30,12 @@
       ],
       view: new View({
         center: fromLonLat([-80.6077, 28.5623]),
-        zoom: 5,
+        zoom: 10,
       }),
     });
   });
 </script>
 
-<Card class="w-[512px] h-[355px]">
-  <div id="map" style="height: 400px; width: 100%;"></div>
+<Card class="w-[521px] h-[355px]">
+  <div id="map" style="height: 301px; width: 100%;"></div>
 </Card>
