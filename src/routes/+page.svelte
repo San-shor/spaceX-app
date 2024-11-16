@@ -15,6 +15,6 @@
     <Table data={data.landsPadData} />
   </div>
   <div class="grid col-span-3">
-    <MapView />
+    <MapView data={data.landsPadData} />
   </div>
 </div>

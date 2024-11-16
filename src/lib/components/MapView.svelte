@@ -3,27 +3,38 @@
   import Map from 'ol/Map.js';
   import View from 'ol/View.js';
   import TileLayer from 'ol/layer/Tile.js';
+  import VectorLayer from 'ol/layer/Vector';
   import OSM from 'ol/source/OSM.js';
-  import { onMount } from 'svelte';
+  import { fromLonLat } from 'ol/proj';
 
+  import { onMount } from 'svelte';
+  import { createLandingPadFeatures } from '../../utils/mapUtils';
+
+  let { data } = $props();
+  console.log(data);
   let map;
 
   onMount(() => {
+    const vectorSource = createLandingPadFeatures(data);
+
     map = new Map({
-      view: new View({
-        center: [0, 0],
-        zoom: 1,
-      }),
+      target: 'map',
       layers: [
         new TileLayer({
           source: new OSM(),
         }),
+        new VectorLayer({
+          source: vectorSource,
+        }),
       ],
-      target: 'map',
+      view: new View({
+        center: fromLonLat([-80.6077, 28.5623]),
+        zoom: 5,
+      }),
     });
   });
 </script>
 
-<Card>
+<Card class="w-[512px] h-[355px]">
   <div id="map" style="height: 400px; width: 100%;"></div>
 </Card>
