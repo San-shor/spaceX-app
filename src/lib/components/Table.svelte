@@ -13,16 +13,16 @@
     Modal,
   } from 'flowbite-svelte';
   import { LinkOutline } from 'flowbite-svelte-icons';
-  import DetailsModal from './DetailsModal.svelte';
+  import DetailsModal from './Details/DetailsModal.svelte';
 
   let { data, filterValue = $bindable() } = $props();
   let openModal = $state(false);
   let selectedLandingPad = $state(null);
 
-  function openDetailsModal() {
+  const handleClickDetails = (landingPad) => {
+    selectedLandingPad = landingPad;
     openModal = true;
-    console.log('hi');
-  }
+  };
 </script>
 
 <Card class="min-w-full">
@@ -50,8 +50,7 @@
                 pill
                 class="rounded-md bg-gray-100 text-xs font-medium py-[2px] px-[10px]"
                 onclick={() => {
-                  selectedLandingPad = landingPad;
-                  openModal = true;
+                  handleClickDetails(landingPad);
                 }}
                 >View Details
               </Button></TableBodyCell
@@ -99,12 +98,6 @@
     </TableBody>
   </Table>
 </Card>
-<Modal title="Terms of Service" bind:open={openModal} autoclose>
-  {#if selectedLandingPad}
-    <p><strong>Details:</strong> {selectedLandingPad.details}</p>
-  {/if}
-  <svelte:fragment slot="footer">
-    <Button on:click={() => alert('Handle "success"')}>I accept</Button>
-    <Button color="alternative">Decline</Button>
-  </svelte:fragment>
-</Modal>
+{#if selectedLandingPad}
+  <DetailsModal bind:open={openModal} {selectedLandingPad} />
+{/if}
