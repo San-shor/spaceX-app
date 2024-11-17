@@ -10,11 +10,19 @@
     Badge,
     Progressbar,
     Card,
+    Modal,
   } from 'flowbite-svelte';
   import { LinkOutline } from 'flowbite-svelte-icons';
+  import DetailsModal from './DetailsModal.svelte';
 
   let { data, filterValue = $bindable() } = $props();
-  // let { filterValue = $bindable(), ...props } = $props();
+  let openModal = $state(false);
+  let selectedLandingPad = $state(null);
+
+  function openDetailsModal() {
+    openModal = true;
+    console.log('hi');
+  }
 </script>
 
 <Card class="min-w-full">
@@ -41,8 +49,12 @@
                 size="sm"
                 pill
                 class="rounded-md bg-gray-100 text-xs font-medium py-[2px] px-[10px]"
-                >View Details</Button
-              ></TableBodyCell
+                onclick={() => {
+                  selectedLandingPad = landingPad;
+                  openModal = true;
+                }}
+                >View Details
+              </Button></TableBodyCell
             >
             <TableBodyCell class="min-w-[150px]">
               <Progressbar
@@ -87,3 +99,12 @@
     </TableBody>
   </Table>
 </Card>
+<Modal title="Terms of Service" bind:open={openModal} autoclose>
+  {#if selectedLandingPad}
+    <p><strong>Details:</strong> {selectedLandingPad.details}</p>
+  {/if}
+  <svelte:fragment slot="footer">
+    <Button on:click={() => alert('Handle "success"')}>I accept</Button>
+    <Button color="alternative">Decline</Button>
+  </svelte:fragment>
+</Modal>
