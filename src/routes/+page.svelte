@@ -10,9 +10,11 @@
   import GridIcon from '$lib/assets/grid.svg';
   import ListIcon from '$lib/assets/list.svg';
   import Filter from '$lib/components/Filter.svelte';
+  import GridView from '$lib/components/GridView.svelte';
 
   let { data } = $props();
   let filterValue = $state('');
+  let viewMode = $state('list');
 </script>
 
 <div class="px-24 grid grid-cols-12 gap-10">
@@ -20,16 +22,29 @@
     <div class="flex flex-col gap-4">
       <div class="flex justify-between">
         <div class="flex">
-          <Button color="alternative" class="p-[10px] rounded-r-none">
+          <Button
+            color="alternative"
+            class="p-[10px] rounded-r-none focus:border-transparent focus:ring-0 focus:bg-gray-200"
+            onclick={() => (viewMode = 'list')}
+            autofocus
+          >
             <img src={ListIcon} alt="" width="16px" height="16px" />
           </Button>
-          <Button color="alternative" class="p-[10px] rounded-l-none">
+          <Button
+            color="alternative"
+            class="p-[10px] rounded-l-none focus:border-transparent focus:ring-0 focus:bg-gray-200"
+            onclick={() => (viewMode = 'grid')}
+          >
             <img src={GridIcon} alt="" width="16px" height="16px" />
           </Button>
         </div>
         <Filter bind:filterValue />
       </div>
-      <Table data={data.landsPadData} bind:filterValue />
+      {#if viewMode === 'list'}
+        <Table data={data.landsPadData} bind:filterValue />
+      {:else}
+        <GridView data={data.landsPadData} />
+      {/if}
     </div>
   </div>
   <div class="grid col-span-3 gap-3">

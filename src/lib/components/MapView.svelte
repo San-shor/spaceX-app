@@ -9,7 +9,6 @@
   import XYZ from 'ol/source/XYZ';
   import { onMount } from 'svelte';
   import { createLandingPadFeatures } from '../../utils/mapUtils';
-  import ActiveIcon from '$lib/assets/active.svg';
 
   let { data } = $props();
 
@@ -29,8 +28,8 @@
         }),
       ],
       view: new View({
-        center: fromLonLat([-80.6077, 28.5623]),
-        zoom: 10,
+        center: [0, 0],
+        zoom: 8,
       }),
     });
   });
