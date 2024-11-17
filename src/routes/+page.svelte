@@ -34,6 +34,6 @@
   </div>
   <div class="grid col-span-3 gap-3">
     <MapView data={data.landsPadData} />
-    <DoughnutChart chartData={data.landsPadData} />
+    <DoughnutChart chartData={data.landsPadData} bind:filterValue />
   </div>
 </div>

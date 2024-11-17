@@ -9,25 +9,26 @@
     Popover,
     Tooltip,
   } from 'flowbite-svelte';
-  import {
-    InfoCircleSolid,
-    ArrowDownToBracketOutline,
-    ChevronDownOutline,
-    ChevronRightOutline,
-    PenSolid,
-    DownloadSolid,
-    ShareNodesSolid,
-  } from 'flowbite-svelte-icons';
+
   import { calculateSuccessRate } from '../../utils/successRateUtils';
 
-  let { chartData } = $props();
-
-  const successRate = calculateSuccessRate(chartData);
-  console.log(successRate);
-
-  const options = {
+  const { chartData, filterValue = $bindable() } = $props();
+  const filteredData = $derived(() =>
+    chartData.filter((item) => item.status.includes(filterValue))
+  );
+  const successRate = $derived(calculateSuccessRate(filteredData()));
+  const options = $derived({
     series: successRate,
-    colors: ['#1C64F2', '#16BDCA', '#FDBA8C', '#E74694'],
+    colors: [
+      '#1C64F2',
+      '#16BDCA',
+      '#FDBA8C',
+      '#E74694',
+      '#34D399',
+      '#FACC15',
+      '#A78BFA',
+    ],
+
     chart: {
       height: 220,
       width: '100%',
@@ -82,7 +83,7 @@
     legend: {
       show: false,
     },
-  };
+  });
 </script>
 
 <Card class="w-[522px] h-[350px]">
