@@ -26,25 +26,25 @@
 <Dropdown class="w-44 p-3 space-y-3 text-sm font-medium">
   <li>
     <Radio
-      name="group1"
-      checked={filterValue === 'active'}
-      on:change={onChange}
+      name="active"
+      bind:group={filterValue}
+      onchange={onChange}
       value={'active'}>Active</Radio
     >
   </li>
   <li>
     <Radio
-      name="group1"
-      checked={filterValue === 'retired'}
-      on:change={onChange}
+      name="retired"
+      bind:group={filterValue}
+      onchange={onChange}
       value={'retired'}>Retired</Radio
     >
   </li>
   <li>
     <Radio
-      name="group1"
-      checked={filterValue === 'under construction'}
-      on:change={onChange}
+      name="under construction"
+      bind:group={filterValue}
+      onchange={onChange}
       value={'under construction'}
       class="text-nowrap">Under Construction</Radio
     >
