@@ -14,7 +14,6 @@
   import { boundingExtent } from 'ol/extent';
 
   let { data } = $props();
-  console.log({ data });
 
   let vectorSource;
 
@@ -26,6 +25,7 @@
           source: new OSM(),
         }),
       ],
+      controls: [],
       view: new View({
         center: fromLonLat([-80.544444, 28.485833]),
         zoom: 15,
@@ -34,14 +34,20 @@
     vectorSource = new VectorSource();
 
     data.forEach((pad) => {
-      const color = pad.status === 'active' ? '#91F652' : '#FF5E57';
+      const color =
+        pad.status === 'active'
+          ? '#91F652'
+          : pad.status === 'retired'
+            ? '#9B1C1C'
+            : '#1E429F';
+
       const marker = new Feature({
         geometry: new Point(
           fromLonLat([pad.location.longitude, pad.location.latitude])
         ),
         name: pad.full_name,
       });
-
+      console.log('location', pad.location);
       const markerStyle = new Style({
         image: new CircleStyle({
           radius: 7,
@@ -67,6 +73,7 @@
   });
 </script>
 
-<Card>
+<Card class="sm:p-0 overflow-hidden">
+  <h3 class="px-4 py-[15px] text-base font-semibold text-gray-900">Map View</h3>
   <div id="map" style="height:301px; width: 100%;"></div>
 </Card>
