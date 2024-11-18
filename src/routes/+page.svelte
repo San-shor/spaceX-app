@@ -43,7 +43,7 @@
       {#if viewMode === 'list'}
         <Table data={data.landsPadData} bind:filterValue />
       {:else}
-        <GridView data={data.landsPadData} />
+        <GridView data={data.landsPadData} bind:filterValue />
       {/if}
     </div>
   </div>
