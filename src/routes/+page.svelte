@@ -17,38 +17,36 @@
   let viewMode = $state('list');
 </script>
 
-<div class="px-24 grid grid-cols-12 gap-10">
-  <div class="grid col-span-9">
-    <div class="flex flex-col gap-4">
-      <div class="flex justify-between">
-        <div class="flex">
-          <Button
-            color="alternative"
-            class="p-[10px] rounded-r-none focus:border-transparent focus:ring-0 focus:bg-gray-200"
-            onclick={() => (viewMode = 'list')}
-            autofocus
-          >
-            <img src={ListIcon} alt="" width="16px" height="16px" />
-          </Button>
-          <Button
-            color="alternative"
-            class="p-[10px] rounded-l-none focus:border-transparent focus:ring-0 focus:bg-gray-200"
-            onclick={() => (viewMode = 'grid')}
-          >
-            <img src={GridIcon} alt="" width="16px" height="16px" />
-          </Button>
-        </div>
-        <Filter bind:filterValue />
+<div class="grid col-span-9">
+  <div class="flex flex-col gap-4">
+    <div class="flex justify-between">
+      <div class="flex">
+        <Button
+          color="alternative"
+          class="p-[10px] rounded-r-none focus:border-transparent focus:ring-0 focus:bg-gray-200"
+          onclick={() => (viewMode = 'list')}
+          autofocus
+        >
+          <img src={ListIcon} alt="" width="16px" height="16px" />
+        </Button>
+        <Button
+          color="alternative"
+          class="p-[10px] rounded-l-none focus:border-transparent focus:ring-0 focus:bg-gray-200"
+          onclick={() => (viewMode = 'grid')}
+        >
+          <img src={GridIcon} alt="" width="16px" height="16px" />
+        </Button>
       </div>
-      {#if viewMode === 'list'}
-        <Table data={data.landsPadData} bind:filterValue />
-      {:else}
-        <GridView data={data.landsPadData} bind:filterValue />
-      {/if}
+      <Filter bind:filterValue />
     </div>
+    {#if viewMode === 'list'}
+      <Table data={data.landsPadData} bind:filterValue />
+    {:else}
+      <GridView data={data.landsPadData} bind:filterValue />
+    {/if}
   </div>
-  <div class="grid col-span-3 gap-3">
-    <MapView data={data.landsPadData} />
-    <DoughnutChart chartData={data.landsPadData} bind:filterValue />
-  </div>
+</div>
+<div class="grid col-span-3 gap-3">
+  <MapView data={data.landsPadData} />
+  <DoughnutChart chartData={data.landsPadData} bind:filterValue />
 </div>

@@ -12,5 +12,7 @@
   </div>
 </header>
 <main class="p-4">
-  {@render children()}
+  <div class="px-24 grid grid-cols-12 gap-10">
+    {@render children()}
+  </div>
 </main>
