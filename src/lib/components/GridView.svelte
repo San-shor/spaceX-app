@@ -2,8 +2,17 @@
   import { Card, Badge, Button, Progressbar } from 'flowbite-svelte';
   import { LinkOutline } from 'flowbite-svelte-icons';
   import { MapPinAltOutline } from 'flowbite-svelte-icons';
+  import DetailsModal from './Details/DetailsModal.svelte';
 
   let { data } = $props();
+
+  let openModal = $state(false);
+  let selectedLandingPad = $state(null);
+
+  const handleClickDetails = (landingPad) => {
+    selectedLandingPad = landingPad;
+    openModal = true;
+  };
 </script>
 
 <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-5 align-center">
@@ -41,6 +50,9 @@
             size="sm"
             pill
             class="rounded-md bg-gray-100 text-xs font-medium py-1 px-3 hover:bg-gray-200 "
+            onclick={() => {
+              handleClickDetails(landingPad);
+            }}
             >View Details
           </Button>
           <Button
@@ -68,3 +80,6 @@
     </Card>
   {/each}
 </div>
+{#if selectedLandingPad}
+  <DetailsModal bind:open={openModal} {selectedLandingPad} />
+{/if}
