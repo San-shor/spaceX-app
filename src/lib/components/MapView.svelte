@@ -13,27 +13,36 @@
   import { Card } from 'flowbite-svelte';
   import { boundingExtent } from 'ol/extent';
 
-  let { data } = $props();
-
-  let vectorSource;
-
+  let { data, filterValue = $bindable() } = $props();
+  const filterMapData = $derived(
+    data.filter((item) => filterValue === item.status || filterValue === '')
+  );
+  let map = $state(undefined);
+  let vectorSource = $state(undefined);
+  let vectorLayer = $state(undefined);
   $effect(() => {
-    const map = new Map({
-      target: 'map',
-      layers: [
-        new TileLayer({
-          source: new OSM(),
+    if (!map) {
+      vectorSource = new VectorSource();
+      vectorLayer = new VectorLayer({
+        source: vectorSource,
+      });
+      map = new Map({
+        target: 'map',
+        layers: [
+          new TileLayer({
+            source: new OSM(),
+          }),
+        ],
+        controls: [],
+        view: new View({
+          center: fromLonLat([-80.544444, 28.485833]),
+          zoom: 5,
         }),
-      ],
-      controls: [],
-      view: new View({
-        center: fromLonLat([-80.544444, 28.485833]),
-        zoom: 15,
-      }),
-    });
-    vectorSource = new VectorSource();
+      });
+    }
+    vectorSource.clear();
 
-    data.forEach((pad) => {
+    filterMapData.forEach((pad) => {
       const color =
         pad.status === 'active'
           ? '#91F652'
@@ -47,7 +56,7 @@
         ),
         name: pad.full_name,
       });
-      console.log('location', pad.location);
+
       const markerStyle = new Style({
         image: new CircleStyle({
           radius: 7,
@@ -58,18 +67,14 @@
 
       vectorSource.addFeature(marker);
     });
-
-    const vectorLayer = new VectorLayer({
-      source: vectorSource,
-    });
-
-    map.addLayer(vectorLayer);
-    const extent = boundingExtent(
-      vectorSource
-        .getFeatures()
-        .map((feature) => feature.getGeometry().getCoordinates())
-    );
-    map.getView().fit(extent, { padding: [20, 20, 20, 20], maxZoom: 15 });
+    const features = vectorSource.getFeatures();
+    if (features.length > 0) {
+      map.addLayer(vectorLayer);
+      const extent = boundingExtent(
+        features.map((feature) => feature.getGeometry().getCoordinates())
+      );
+      map.getView().fit(extent, { padding: [20, 20, 20, 20], maxZoom: 15 });
+    }
   });
 </script>
 
