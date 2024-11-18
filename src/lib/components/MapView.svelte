@@ -1,40 +1,72 @@
 <script>
-  import { Card } from 'flowbite-svelte';
-  import Map from 'ol/Map.js';
-  import View from 'ol/View.js';
-  import TileLayer from 'ol/layer/Tile.js';
+  import 'ol/ol.css';
+  import Map from 'ol/Map';
+  import View from 'ol/View';
+  import TileLayer from 'ol/layer/Tile';
+  import OSM from 'ol/source/OSM';
   import VectorLayer from 'ol/layer/Vector';
-  import OSM from 'ol/source/OSM.js';
+  import VectorSource from 'ol/source/Vector';
+  import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
   import { fromLonLat } from 'ol/proj';
-  import XYZ from 'ol/source/XYZ';
-  import { onMount } from 'svelte';
-  import { createLandingPadFeatures } from '../../utils/mapUtils';
+  import Feature from 'ol/Feature';
+  import Point from 'ol/geom/Point';
+  import { Card } from 'flowbite-svelte';
+  import { boundingExtent } from 'ol/extent';
 
   let { data } = $props();
+  console.log({ data });
 
-  let map;
+  let vectorSource;
 
-  onMount(() => {
-    const vectorSource = createLandingPadFeatures(data);
-
-    map = new Map({
+  $effect(() => {
+    const map = new Map({
       target: 'map',
       layers: [
         new TileLayer({
           source: new OSM(),
         }),
-        new VectorLayer({
-          source: vectorSource,
-        }),
       ],
       view: new View({
-        center: [0, 0],
-        zoom: 8,
+        center: fromLonLat([-80.544444, 28.485833]),
+        zoom: 15,
       }),
     });
+    vectorSource = new VectorSource();
+
+    data.forEach((pad) => {
+      const color = pad.status === 'active' ? '#91F652' : '#FF5E57';
+      const marker = new Feature({
+        geometry: new Point(
+          fromLonLat([pad.location.longitude, pad.location.latitude])
+        ),
+        name: pad.full_name,
+      });
+
+      const markerStyle = new Style({
+        image: new CircleStyle({
+          radius: 7,
+          fill: new Fill({ color: color }),
+        }),
+      });
+      marker.setStyle(markerStyle);
+
+      vectorSource.addFeature(marker);
+    });
+
+    const vectorLayer = new VectorLayer({
+      source: vectorSource,
+    });
+
+    map.addLayer(vectorLayer);
+    const extent = boundingExtent(
+      vectorSource
+        .getFeatures()
+        .map((feature) => feature.getGeometry().getCoordinates())
+    );
+    map.getView().fit(extent, { padding: [20, 20, 20, 20], maxZoom: 15 });
   });
 </script>
 
-<Card class="w-[521px] h-[355px]">
-  <div id="map" style="height: 301px; width: 100%;"></div>
+<Card>
+  <div id="map" style="height:301px; width: 100%;"></div>
 </Card>
