@@ -25,8 +25,8 @@
           {landingPad.full_name}
         </p>
 
-        <div class=" flex flex-col gap-4 text-gray-900 mt-2">
-          <div class="flex flex-row gap-1">
+        <div class=" flex flex-col gap-1 text-gray-900 mt-2">
+          <div class="flex flex-row gap-1 -ml-1">
             <MapPinAltOutline />
 
             <span class="leading-5 text-sm"
@@ -45,7 +45,7 @@
                 : 'N/A'}
             </p>
           </div>
-          <div class="flex flex-row flex-wrap gap-2 text-sm items-end">
+          <div class="flex flex-row flex-wrap gap-2 text-sm items-end mt-3">
             <Button
               color="light"
               size="sm"
