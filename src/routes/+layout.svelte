@@ -1,7 +1,6 @@
 <script>
-  import '../app.css';
   import Logo from '$lib/assets/logo.png';
-  import Table from '$lib/components/Table.svelte';
+  import '../app.css';
 
   let { children } = $props();
 </script>
@@ -12,7 +11,7 @@
   </div>
 </header>
 <main class="p-4">
-  <div class="px-24 grid grid-cols-12 gap-10">
+  <div class="px-4 grid grid-cols-12 gap-10">
     {@render children()}
   </div>
 </main>
