@@ -1,17 +1,42 @@
-# sv
+# SpaceX Landing Pads Dashboard
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A web application to display and interact with SpaceX landing pad data using the SpaceX API. The app includes features such as table/grid views, a map, a doughnut chart, and data filtering.
 
-## Creating a project
+## Features
 
-If you're seeing this, you've probably already done this step. Congrats!
+1. **Table/Grid View**
+
+   - Fetches all landing pad data from the SpaceX API (`https://api.spacexdata.com/v3/landpads`).
+   - Displays the data in a table (list view) and a custom grid view.
+   - Allows users to toggle between list and grid views.
+
+2. **Map Integration**
+
+   - An OpenLayers map displaying the locations of all landing pads.
+   - Differentiates active and inactive landing pads visually.
+   - Uses latitude and longitude to position landing pads.
+
+3. **Doughnut Chart**
+
+   - Displays the success rate of each landing pad.
+   - Formula: `success_rate = (successful_landings / attempted_landings) * 100`.
+   - Built using Flowbite's built-in chart components.
+
+4. **Data Filtering**
+   - A dropdown filter to filter landing pad data based on criteria such as:
+     - Active/Inactive status
+     - Landing success rate
+   - Filters update the table, map, and chart views dynamically.
+
+---
+
+## Installation
+
+Clone the repository:
 
 ```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
+git clone https://github.com/your-username/spacex-landing-pads-dashboard.git
+cd spacex-landing-pads-dashboard
 ```
 
 ## Developing
