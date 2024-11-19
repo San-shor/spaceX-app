@@ -2,6 +2,12 @@
 
 A web application to display and interact with SpaceX landing pad data using the SpaceX API. The app includes features such as table/grid views, a map, a doughnut chart, and data filtering.
 
+## Live Demo
+
+Check out the live version of the app: [SpaceX Landing Pads Dashboard](https://space-x-app-ten.vercel.app/)
+
+---
+
 ## Features
 
 1. **Table/Grid View**
