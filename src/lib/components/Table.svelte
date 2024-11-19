@@ -1,16 +1,15 @@
 <script>
   import {
+    Badge,
+    Button,
+    Card,
+    Progressbar,
     Table,
     TableBody,
     TableBodyCell,
     TableBodyRow,
     TableHead,
-    TableHeadCell,
-    Button,
-    Badge,
-    Progressbar,
-    Card,
-    Modal,
+    TableHeadCell
   } from 'flowbite-svelte';
   import { LinkOutline } from 'flowbite-svelte-icons';
   import DetailsModal from './Details/DetailsModal.svelte';

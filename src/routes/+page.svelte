@@ -1,23 +1,19 @@
 <script>
-  import DoughnutChart from '$lib/components/DoughnutChart.svelte';
-  import MapView from '$lib/components/MapView.svelte';
-  import Table from '$lib/components/Table.svelte';
-  import { Button, Card } from 'flowbite-svelte';
-  import Map from 'ol/Map.js';
-  import View from 'ol/View.js';
-  import TileLayer from 'ol/layer/Tile.js';
-  import OSM from 'ol/source/OSM.js';
   import GridIcon from '$lib/assets/grid.svg';
   import ListIcon from '$lib/assets/list.svg';
+  import DoughnutChart from '$lib/components/DoughnutChart.svelte';
   import Filter from '$lib/components/Filter.svelte';
   import GridView from '$lib/components/GridView.svelte';
+  import MapView from '$lib/components/MapView.svelte';
+  import Table from '$lib/components/Table.svelte';
+  import { Button } from 'flowbite-svelte';
 
   let { data } = $props();
   let filterValue = $state('');
   let viewMode = $state('list');
 </script>
 
-<div class="grid col-span-9">
+<div class="grid col-span-8">
   <div class="flex flex-col gap-4">
     <div class="flex justify-between">
       <div class="flex">
@@ -46,7 +42,7 @@
     {/if}
   </div>
 </div>
-<div class="grid col-span-3 gap-8">
+<div class="grid col-span-4 gap-8">
   <MapView data={data.landsPadData} bind:filterValue />
   <DoughnutChart chartData={data.landsPadData} bind:filterValue />
 </div>
