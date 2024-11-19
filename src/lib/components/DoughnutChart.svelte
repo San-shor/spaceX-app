@@ -1,13 +1,7 @@
 <script>
   import {
-    Chart,
     Card,
-    A,
-    Button,
-    Dropdown,
-    DropdownItem,
-    Popover,
-    Tooltip,
+    Chart
   } from 'flowbite-svelte';
 
   import { calculateSuccessRate } from '$lib/utils/successRateUtils';
@@ -90,7 +84,7 @@
   <div class="flex justify-between items-start w-full">
     <div class="flex-col items-center">
       <div class="flex items-center mb-1">
-        <p class="text-base font-semibold text-gray-900">Success rate Chart</p>
+        <p class="text-base font-semibold text-gray-900 capitalize">Success rate Chart</p>
       </div>
     </div>
   </div>

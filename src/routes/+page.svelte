@@ -13,7 +13,7 @@
   let viewMode = $state('list');
 </script>
 
-<div class="grid col-span-8">
+<div class="col-span-8">
   <div class="flex flex-col gap-4">
     <div class="flex justify-between">
       <div class="flex">
