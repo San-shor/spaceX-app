@@ -1,7 +1,7 @@
 <script>
-  import { Button, Dropdown, DropdownItem, Radio } from 'flowbite-svelte';
-  import { ChevronDownOutline } from 'flowbite-svelte-icons';
   import FilterIcon from '$lib/assets/adjustment.svg';
+  import { Button, Dropdown, Radio } from 'flowbite-svelte';
+  import { ChevronDownOutline } from 'flowbite-svelte-icons';
   let group1 = 2;
 
   let { filterValue = $bindable(), ...props } = $props();
@@ -24,6 +24,14 @@
   Filter By Status <ChevronDownOutline class="w-4 h-4 ms-2 " />
 </Button>
 <Dropdown class="w-44 p-3 space-y-3 text-sm font-medium">
+  <li>
+    <Radio
+      name="all"
+      bind:group={filterValue}
+      onchange={onChange}
+      value={''}>All</Radio
+    >
+  </li>
   <li>
     <Radio
       name="active"
