@@ -10,7 +10,7 @@
     Tooltip,
   } from 'flowbite-svelte';
 
-  import { calculateSuccessRate } from '../../utils/successRateUtils';
+  import { calculateSuccessRate } from '$lib/utils/successRateUtils';
 
   const { chartData, filterValue = $bindable() } = $props();
   const filteredData = $derived(() =>
